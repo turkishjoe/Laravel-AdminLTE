@@ -6,23 +6,35 @@
     @elseif (isset($item['search']) && $item['search'])
         <li @if (isset($item['id'])) id="{{ $item['id'] }}" @endif>
             <form action="{{ $item['href'] }}" method="{{ $item['method'] }}" class="form-inline">
-              <div class="input-group">
-                <input class="form-control form-control-sidebar" type="search" name="{{ $item['input_name'] }}" placeholder="{{ $item['text'] }}" aria-label="{{ $item['aria-label'] ?? $item['text'] }}">
-                <div class="input-group-append">
-                  <button class="btn btn-sidebar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
+                <div class="input-group">
+                    <input class="form-control form-control-sidebar" type="search" name="{{ $item['input_name'] }}"
+                           placeholder="{{ $item['text'] }}" aria-label="{{ $item['aria-label'] ?? $item['text'] }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-              </div>
             </form>
         </li>
     @else
-        <li @if (isset($item['id'])) id="{{ $item['id'] }}" @endif class="nav-item @if (isset($item['submenu'])){{ $item['submenu_class'] }}@endif">
-            <a class="nav-link {{ $item['class'] }} @if(isset($item['shift'])) {{ $item['shift'] }} @endif" href="{{ $item['href'] }}"
+        <li @if (isset($item['id'])) id="{{ $item['id'] }}"
+            @endif class="nav-item @if (isset($item['submenu'])){{ $item['submenu_class'] }}@endif">
+            <a class="nav-link {{ $item['class'] }} @if(isset($item['shift'])) {{ $item['shift'] }} @endif"
+               href="{{ $item['href'] }}"
                @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
-               {!! $item['data-compiled'] ?? '' !!}
+                {!! $item['data-compiled'] ?? '' !!}
             >
-                <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+
+                @if(!empty($item['icon']))
+                    <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+                @endif
+
+                @if(!empty($item['ion-icon']))
+                        <ion-icon class="{{$item['ion-class'] ?? ''}}" name="{{$item['ion-icon']}}"></ion-icon>
+                @endif
+
+
                 <p>
                     {{ $item['text'] }}
 
@@ -30,7 +42,8 @@
                         <i class="fas fa-angle-left right"></i>
                     @endif
                     @if (isset($item['label']))
-                        <span class="badge badge-{{ $item['label_color'] ?? 'primary' }} right">{{ $item['label'] }}</span>
+                        <span
+                            class="badge badge-{{ $item['label_color'] ?? 'primary' }} right">{{ $item['label'] }}</span>
                     @endif
                 </p>
             </a>
