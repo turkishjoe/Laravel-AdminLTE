@@ -36,7 +36,7 @@
 
 
                 <p>
-                    {{ $item['text'] }}
+                    <span class="{{$item['text-class'] ?? ''}}">{{ $item['text'] }}</span>
 
                     @if (isset($item['submenu']))
                         <i class="fas fa-angle-left right"></i>
